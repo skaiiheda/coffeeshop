@@ -1,0 +1,18 @@
+{% extends 'coffeeshop/base.html' %}
+
+{% block title %}
+  Shift
+{% endblock %}
+
+{% block body %}
+<div class="container p-5">
+  <h1>Смена</h1>
+  <div class="container p-2">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary btn-lg">Отметиться</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

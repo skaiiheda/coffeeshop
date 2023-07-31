@@ -1,0 +1,26 @@
+{% extends 'coffeeshop/base.html' %}
+
+{% block title %}
+  Employees
+{% endblock %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<div class="container p-5">
+  <h1>Персонал</h1>
+  <div class="container p-2">
+  {% if employees %}
+    {% for employee in employees %}
+      <p>Работник: <a href="{% url 'coffeeshop:schedule' pk=employee.pk %}">{{ employee.fio }}</a></p>
+      <p>Должность: {{ employee.position }}</p>
+    <br>
+    {% endfor %}
+  {% else %}
+    <h2>Еще нет работников</h2>
+  {% endif %}
+  </div>
+</div>
+{% else %}
+  <h1>Вы еще не авторизовались</h1>
+{% endif %}
+{% endblock %}

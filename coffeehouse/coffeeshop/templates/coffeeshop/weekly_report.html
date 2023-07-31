@@ -1,0 +1,31 @@
+{% extends 'coffeeshop/base.html' %}
+
+{% block title %}
+  Report
+{% endblock %}
+
+{% block body %}
+  <h1>Отчет о сотрудниках</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Сотрудник</th>
+                <th>Отработано часов</th>
+                <th>Опоздания (мин)</th>
+                <th>Уходы раньше (мин)</th>
+                <th>Заработная плата</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.fio }}</td>
+                <td>{{ employee.weekly_report.total_hours }}</td>
+                <td>{{ employee.weekly_report.total_late_arrivals }}</td>
+                <td>{{ employee.weekly_report.total_early_departures }}</td>
+                <td>{{ employee.weekly_report.total_earnings }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

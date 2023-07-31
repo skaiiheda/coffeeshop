@@ -1,0 +1,37 @@
+{% extends 'coffeeshop/base.html' %}
+
+{% block title %}
+  Schedule
+{% endblock %}
+
+{% block body %}
+<div class="container p-5">
+  <h1>Расписание</h1>
+{% if user.is_authenticated %}
+  <div class="container p-2">
+  {% if schedule %}
+      <div>
+        <p>Работник: {{ employee.fio }}</p>
+        <p>Должность: {{ employee.position }}</p>
+        {% for shift in schedule %}
+          <p>{% if request.user.is_superuser %}<a href="{% url 'coffeeshop:schedule_update' pk=shift.employee.pk shift_id=shift.pk %}">{{ shift.get_day_display }}</a>{% else %}{{ shift.get_day_display }}{% endif %} - {{ shift.start_time|time:"H:i" }}-{{ shift.end_time|time:"H:i" }}
+            {% if request.user.is_superuser %}<a href="{% url 'coffeeshop:schedule_delete' pk=shift.employee.pk shift_id=shift.pk %}">Удалить смену</a>{% endif %} <a
+                    href="{% url 'coffeeshop:mark' pk=shift.employee.pk shift_id=shift.pk%}">Отметиться</a></p>
+        {% endfor %}
+      </div>
+    <br>
+  {% else %}
+    <h2>Еще нет смен</h2>
+  {% endif %}
+{% if request.user.is_superuser %}
+  <a href="{% url 'coffeeshop:schedule_create' %}" class="btn btn-success btn-lg">Добавить смену</a>
+{% endif %}
+{% else %}
+  <h2>Пользователь не авторизован</h2>
+{% endif %}
+<p class="pt-2">
+  <a href="{% url 'coffeeshop:employees_list' %}" class="btn btn-primary btn-lg">Вернуться к списку пользователей</a>
+</p>
+    </div>
+</div>
+{% endblock %}

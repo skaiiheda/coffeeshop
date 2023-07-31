@@ -1,0 +1,23 @@
+{% extends 'coffeeshop/base.html' %}
+
+{% block title %}
+  Confirm delete
+{% endblock %}
+
+{% block body %}
+<div class="container p-5">
+  <h1>Вы уверены, что хотите удалить смену на этот день?</h1>
+  <br>
+  <div>
+    <a href="{% url 'coffeeshop:schedule' pk=schedule.employee.pk %}" class="btn btn-success btn-lg">Вернуться к расписанию</a>
+  </div>
+  <br>
+  <div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary btn-lg">Удалить</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

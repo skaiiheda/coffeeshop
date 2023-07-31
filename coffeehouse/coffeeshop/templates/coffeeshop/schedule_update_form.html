@@ -1,0 +1,22 @@
+{% extends 'coffeeshop/base.html' %}
+
+{% block title %}
+  Update schedule
+{% endblock %}
+
+{% block body %}
+<div class="container p-5">
+    <h1>Обновление смены</h1>
+  <div class="container p-3">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary btn-lg">Обновить</button>
+    </form>
+    <p class="pt-2">
+        <a href="{% url 'coffeeshop:schedule' pk=schedule.employee.pk %}" class="btn btn-success btn-lg">Вернуться к расписанию</a>
+    </p>
+  </div>
+  <br>
+</div>
+{% endblock %}
